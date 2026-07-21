@@ -4,6 +4,7 @@ import com.henderson.catalog.dto.CategoryDTO;
 import com.henderson.catalog.entity.Category;
 import com.henderson.catalog.repository.CategoryRepository;
 import com.henderson.catalog.service.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,7 @@ public class CategoryService {
         return new CategoryDTO(entity);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public CategoryDTO insert(CategoryDTO dto){
         Category entity = new Category();
         entity.setName(dto.getName());
@@ -40,4 +41,15 @@ public class CategoryService {
         return new CategoryDTO(entity);
     }
 
+    @Transactional
+    public CategoryDTO update(Long id, CategoryDTO dto){
+        try{
+            Category category = categoryRepository.getReferenceById(id);
+            category.setName(dto.getName());
+            category = categoryRepository.save(category);
+            return new CategoryDTO(category);
+        }catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException("Entidade não encontrada");
+        }
+    }
 }
