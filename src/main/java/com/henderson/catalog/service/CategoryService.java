@@ -7,11 +7,12 @@ import com.henderson.catalog.service.exceptions.DatabaseException;
 import com.henderson.catalog.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,9 +25,9 @@ public class CategoryService {
     }
 
     @Transactional(readOnly = true)
-    public List<CategoryDTO> findAll(){
-        List<Category> result = categoryRepository.findAll();
-        return result.stream().map(x -> new CategoryDTO(x)).toList();
+    public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
+        Page<Category> result = categoryRepository.findAll(pageRequest);
+        return result.map(x -> new CategoryDTO(x));
     }
 
     @Transactional(readOnly = true)
