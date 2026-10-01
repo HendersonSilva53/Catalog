@@ -19,7 +19,7 @@ public class ProductDTO implements Serializable {
 
     private String description;
 
-    private BigDecimal price;
+    private Double price;
 
     private String imgUrl;
 
@@ -30,7 +30,7 @@ public class ProductDTO implements Serializable {
     public ProductDTO() {
     }
 
-    public ProductDTO(Long id, String name, String description, BigDecimal price, String imgUrl, Instant date) {
+    public ProductDTO(Long id, String name, String description, Double price, String imgUrl, Instant date) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -77,11 +77,11 @@ public class ProductDTO implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
