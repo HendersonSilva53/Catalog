@@ -23,7 +23,7 @@ public class Product implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    private BigDecimal price;
+    private Double price;
 
     private String imgUrl;
 
@@ -35,7 +35,7 @@ public class Product implements Serializable {
                 inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<Category>();
 
-    public Product(Long id, String name, String description, BigDecimal price, String imgUrl, Instant date) {
+    public Product(Long id, String name, String description, Double price, String imgUrl, Instant date) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -70,11 +70,11 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
